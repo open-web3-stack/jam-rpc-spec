@@ -1,0 +1,571 @@
+{
+  "info" : {
+    "version" : "0.0.1",
+    "title" : "JAM JSONRPC (draft)",
+    "description" : "JSONRPC spec for JAM nodes (draft)"
+  },
+  "methods" : [
+    {
+      "result" : {
+        "schema" : {
+          "type" : "object",
+          "properties" : {
+            "header" : {
+              "type" : "object",
+              "title" : "Header",
+              "properties" : {
+                "seal" : {
+                  "title" : "Data96",
+                  "pattern" : "^0x[0-9a-fA-F]{192}$",
+                  "type" : "string"
+                },
+                "unsigned" : {
+                  "properties" : {
+                    "priorStateRoot" : {
+                      "title" : "Data32",
+                      "type" : "string",
+                      "pattern" : "^0x[0-9a-fA-F]{64}$"
+                    },
+                    "epoch" : {
+                      "properties" : {
+                        "entropy" : {
+                          "pattern" : "^0x[0-9a-fA-F]{64}$",
+                          "type" : "string",
+                          "title" : "Data32"
+                        },
+                        "validators" : {
+                          "type" : "array",
+                          "items" : {
+                            "title" : "Data32",
+                            "type" : "string",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$"
+                          }
+                        }
+                      },
+                      "type" : "object",
+                      "title" : "EpochMarker"
+                    },
+                    "winningTickets" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "title" : "Ticket",
+                        "properties" : {
+                          "attempt" : {
+                            "type" : "integer"
+                          },
+                          "id" : {
+                            "type" : "string",
+                            "title" : "Data32",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$"
+                          }
+                        }
+                      }
+                    },
+                    "timeslot" : {
+                      "type" : "integer"
+                    },
+                    "authorIndex" : {
+                      "type" : "integer"
+                    },
+                    "parentHash" : {
+                      "type" : "string",
+                      "pattern" : "^0x[0-9a-fA-F]{64}$",
+                      "title" : "Data32"
+                    },
+                    "extrinsicsHash" : {
+                      "type" : "string",
+                      "pattern" : "^0x[0-9a-fA-F]{64}$",
+                      "title" : "Data32"
+                    },
+                    "offendersMarkers" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string",
+                        "title" : "Data32",
+                        "pattern" : "^0x[0-9a-fA-F]{64}$"
+                      }
+                    },
+                    "vrfSignature" : {
+                      "title" : "Data96",
+                      "type" : "string",
+                      "pattern" : "^0x[0-9a-fA-F]{192}$"
+                    }
+                  },
+                  "type" : "object",
+                  "title" : "Unsigned"
+                }
+              }
+            },
+            "extrinsic" : {
+              "title" : "Extrinsic",
+              "properties" : {
+                "preimages" : {
+                  "type" : "object",
+                  "title" : "ExtrinsicPreimages",
+                  "properties" : {
+                    "preimages" : {
+                      "type" : "array",
+                      "items" : {
+                        "properties" : {
+                          "serviceIndex" : {
+                            "type" : "integer"
+                          },
+                          "data" : {
+                            "pattern" : "^0x[0-9a-fA-F]*$",
+                            "type" : "string",
+                            "title" : "Data"
+                          }
+                        },
+                        "title" : "PreimageItem",
+                        "type" : "object"
+                      }
+                    }
+                  }
+                },
+                "disputes" : {
+                  "title" : "ExtrinsicDisputes",
+                  "type" : "object",
+                  "properties" : {
+                    "culprits" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "title" : "CulpritItem",
+                        "properties" : {
+                          "reportHash" : {
+                            "pattern" : "^0x[0-9a-fA-F]{64}$",
+                            "type" : "string",
+                            "title" : "Data32"
+                          },
+                          "signature" : {
+                            "pattern" : "^0x[0-9a-fA-F]{128}$",
+                            "type" : "string",
+                            "title" : "Data64"
+                          },
+                          "validatorKey" : {
+                            "title" : "Data32",
+                            "type" : "string",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$"
+                          }
+                        }
+                      }
+                    },
+                    "faults" : {
+                      "items" : {
+                        "type" : "object",
+                        "title" : "FaultItem",
+                        "properties" : {
+                          "vote" : {
+                            "type" : "boolean"
+                          },
+                          "validatorKey" : {
+                            "title" : "Data32",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$",
+                            "type" : "string"
+                          },
+                          "reportHash" : {
+                            "pattern" : "^0x[0-9a-fA-F]{64}$",
+                            "type" : "string",
+                            "title" : "Data32"
+                          },
+                          "signature" : {
+                            "type" : "string",
+                            "title" : "Data64",
+                            "pattern" : "^0x[0-9a-fA-F]{128}$"
+                          }
+                        }
+                      },
+                      "type" : "array"
+                    },
+                    "verdicts" : {
+                      "items" : {
+                        "type" : "object",
+                        "title" : "VerdictItem",
+                        "properties" : {
+                          "reportHash" : {
+                            "type" : "string",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$",
+                            "title" : "Data32"
+                          },
+                          "epoch" : {
+                            "type" : "integer"
+                          },
+                          "judgements" : {
+                            "type" : "array",
+                            "items" : {
+                              "type" : "object",
+                              "title" : "SignatureItem",
+                              "properties" : {
+                                "isValid" : {
+                                  "type" : "boolean"
+                                },
+                                "validatorIndex" : {
+                                  "type" : "integer"
+                                },
+                                "signature" : {
+                                  "pattern" : "^0x[0-9a-fA-F]{128}$",
+                                  "title" : "Data64",
+                                  "type" : "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type" : "array"
+                    }
+                  }
+                },
+                "reports" : {
+                  "type" : "object",
+                  "title" : "ExtrinsicGuarantees",
+                  "properties" : {
+                    "guarantees" : {
+                      "type" : "array",
+                      "items" : {
+                        "title" : "GuaranteeItem",
+                        "type" : "object",
+                        "properties" : {
+                          "credential" : {
+                            "items" : {
+                              "properties" : {
+                                "index" : {
+                                  "type" : "integer"
+                                },
+                                "signature" : {
+                                  "title" : "Data64",
+                                  "pattern" : "^0x[0-9a-fA-F]{128}$",
+                                  "type" : "string"
+                                }
+                              },
+                              "title" : "IndexAndSignature",
+                              "type" : "object"
+                            },
+                            "type" : "array"
+                          },
+                          "timeslot" : {
+                            "type" : "integer"
+                          },
+                          "workReport" : {
+                            "title" : "WorkReport",
+                            "type" : "object",
+                            "properties" : {
+                              "authorizationOutput" : {
+                                "type" : "string",
+                                "pattern" : "^0x[0-9a-fA-F]*$",
+                                "title" : "Data"
+                              },
+                              "_lookup" : {
+                                "type" : "object",
+                                "properties" : {
+                                  "wrappedValue" : {
+                                    "type" : "object",
+                                    "title" : "Dictionary<Data32, Data32>"
+                                  }
+                                },
+                                "title" : "CodingAs<SortedKeyValues<FixedSizeData<ConstInt32>, FixedSizeData<ConstInt32>>>"
+                              },
+                              "packageSpecification" : {
+                                "type" : "object",
+                                "title" : "AvailabilitySpecifications",
+                                "properties" : {
+                                  "segmentRoot" : {
+                                    "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                    "type" : "string",
+                                    "title" : "Data32"
+                                  },
+                                  "length" : {
+                                    "type" : "integer"
+                                  },
+                                  "segmentCount" : {
+                                    "type" : "integer"
+                                  },
+                                  "erasureRoot" : {
+                                    "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                    "title" : "Data32",
+                                    "type" : "string"
+                                  },
+                                  "workPackageHash" : {
+                                    "title" : "Data32",
+                                    "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                    "type" : "string"
+                                  }
+                                }
+                              },
+                              "authorizerHash" : {
+                                "title" : "Data32",
+                                "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                "type" : "string"
+                              },
+                              "results" : {
+                                "items" : {
+                                  "title" : "WorkResult",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "gasRatio" : {
+                                      "type" : "object",
+                                      "properties" : {
+                                        "value" : {
+                                          "type" : "integer"
+                                        }
+                                      },
+                                      "title" : "SaturatingNumber<UInt64>"
+                                    },
+                                    "codeHash" : {
+                                      "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                      "type" : "string",
+                                      "title" : "Data32"
+                                    },
+                                    "serviceIndex" : {
+                                      "type" : "integer"
+                                    },
+                                    "output" : {
+                                      "title" : "WorkOutput",
+                                      "properties" : {
+                                        "result" : {
+                                          "type" : "object",
+                                          "title" : "Result<Data, WorkResultError>"
+                                        }
+                                      },
+                                      "type" : "object"
+                                    },
+                                    "payloadHash" : {
+                                      "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                      "type" : "string",
+                                      "title" : "Data32"
+                                    }
+                                  }
+                                },
+                                "type" : "array"
+                              },
+                              "coreIndex" : {
+                                "type" : "integer"
+                              },
+                              "refinementContext" : {
+                                "type" : "object",
+                                "title" : "RefinementContext",
+                                "properties" : {
+                                  "anchor" : {
+                                    "properties" : {
+                                      "stateRoot" : {
+                                        "title" : "Data32",
+                                        "type" : "string",
+                                        "pattern" : "^0x[0-9a-fA-F]{64}$"
+                                      },
+                                      "beefyRoot" : {
+                                        "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                        "type" : "string",
+                                        "title" : "Data32"
+                                      },
+                                      "headerHash" : {
+                                        "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                        "type" : "string",
+                                        "title" : "Data32"
+                                      }
+                                    },
+                                    "type" : "object",
+                                    "title" : "Anchor"
+                                  },
+                                  "_prerequisiteWorkPackages" : {
+                                    "properties" : {
+                                      "wrappedValue" : {
+                                        "items" : {
+                                          "type" : "string",
+                                          "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                          "title" : "Data32"
+                                        },
+                                        "type" : "array"
+                                      }
+                                    },
+                                    "type" : "object",
+                                    "title" : "CodingAs<SortedSet<FixedSizeData<ConstInt32>>>"
+                                  },
+                                  "lookupAnchor" : {
+                                    "type" : "object",
+                                    "title" : "LookupAnchor",
+                                    "properties" : {
+                                      "timeslot" : {
+                                        "type" : "integer"
+                                      },
+                                      "headerHash" : {
+                                        "type" : "string",
+                                        "pattern" : "^0x[0-9a-fA-F]{64}$",
+                                        "title" : "Data32"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "tickets" : {
+                  "properties" : {
+                    "tickets" : {
+                      "type" : "array",
+                      "items" : {
+                        "title" : "TicketItem",
+                        "properties" : {
+                          "signature" : {
+                            "type" : "string",
+                            "title" : "Data784",
+                            "pattern" : "^0x[0-9a-fA-F]{1568}$"
+                          },
+                          "attempt" : {
+                            "type" : "integer"
+                          }
+                        },
+                        "type" : "object"
+                      }
+                    }
+                  },
+                  "type" : "object",
+                  "title" : "ExtrinsicTickets"
+                },
+                "availability" : {
+                  "title" : "ExtrinsicAvailability",
+                  "properties" : {
+                    "assurances" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "object",
+                        "title" : "AssuranceItem",
+                        "properties" : {
+                          "parentHash" : {
+                            "title" : "Data32",
+                            "pattern" : "^0x[0-9a-fA-F]{64}$",
+                            "type" : "string"
+                          },
+                          "assurance" : {
+                            "properties" : {
+                              "bytes" : {
+                                "title" : "Data",
+                                "type" : "string",
+                                "pattern" : "^0x[0-9a-fA-F]*$"
+                              },
+                              "length" : {
+                                "type" : "integer"
+                              }
+                            },
+                            "type" : "object",
+                            "title" : "ConfigSizeBitString<TotalNumberOfCores>"
+                          },
+                          "signature" : {
+                            "pattern" : "^0x[0-9a-fA-F]{128}$",
+                            "type" : "string",
+                            "title" : "Data64"
+                          },
+                          "validatorIndex" : {
+                            "type" : "integer"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type" : "object"
+                }
+              },
+              "type" : "object"
+            }
+          },
+          "title" : "Block"
+        },
+        "required" : false,
+        "name" : "Block"
+      },
+      "summary" : "Get block by hash. If hash is not provided, returns the best block.",
+      "name" : "chain_getBlock",
+      "params" : [
+        {
+          "required" : false,
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string",
+            "title" : "Data32"
+          },
+          "name" : "Data32"
+        }
+      ]
+    },
+    {
+      "result" : {
+        "schema" : {
+          "type" : "boolean"
+        },
+        "name" : "Bool",
+        "required" : true
+      },
+      "summary" : "Returns true if the node is healthy.",
+      "params" : [
+
+      ],
+      "name" : "system_health"
+    },
+    {
+      "summary" : "Returns the version of the node.",
+      "name" : "system_version",
+      "result" : {
+        "name" : "String",
+        "schema" : {
+          "type" : "string"
+        },
+        "required" : true
+      },
+      "params" : [
+
+      ]
+    },
+    {
+      "summary" : "Returns the latest telemetry update.",
+      "result" : {
+        "schema" : {
+          "title" : "Dictionary<String, String>",
+          "type" : "object"
+        },
+        "name" : "Dictionary<String, String>",
+        "required" : true
+      },
+      "params" : [
+
+      ],
+      "name" : "telemetry_getUpdate"
+    },
+    {
+      "summary" : "Returns the name of the node.",
+      "name" : "telemetry_name",
+      "params" : [
+
+      ],
+      "result" : {
+        "name" : "String",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    {
+      "name" : "rpc_methods",
+      "params" : [
+
+      ],
+      "summary" : "Returns a list of available RPC methods.",
+      "result" : {
+        "schema" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : "array"
+        },
+        "name" : "Array<String>",
+        "required" : true
+      }
+    }
+  ],
+  "openrpc" : "1.0.0"
+}
