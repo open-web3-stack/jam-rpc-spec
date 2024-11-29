@@ -1,15 +1,5 @@
 # jam-rpc-spec
 
-To install dependencies:
+JSONRPC spec for JAM nodes. Powered by [open-rpc](https://open-rpc.org).
 
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.37. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+[Playground Link](https://playground.open-rpc.org/?schemaUrl=https://raw.githubusercontent.com/open-web3-stack/jam-rpc-spec/refs/heads/master/openrpc.json)
