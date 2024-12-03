@@ -1,213 +1,187 @@
 {
+  "openrpc" : "1.0.0",
+  "info" : {
+    "title" : "JAM JSONRPC (draft)",
+    "version" : "0.0.1",
+    "description" : "JSONRPC spec for JAM nodes (draft)"
+  },
   "methods" : [
     {
       "result" : {
         "name" : "Data",
         "required" : false,
         "schema" : {
-          "type" : "string",
           "title" : "Data",
-          "pattern" : "^0x[0-9a-fA-F]*$"
+          "pattern" : "^0x[0-9a-fA-F]*$",
+          "type" : "string"
         }
       },
-      "summary" : "Get block by hash. If hash is not provided, returns the best block.",
-      "name" : "chain_getBlock",
       "params" : [
         {
-          "required" : false,
-          "name" : "Data32",
           "schema" : {
             "type" : "string",
             "title" : "Data32",
             "pattern" : "^0x[0-9a-fA-F]{64}$"
-          }
-        }
-      ]
-    },
-    {
-      "params" : [
-        {
-          "schema" : {
-            "type" : "integer"
           },
-          "name" : "UInt32",
+          "name" : "hash",
           "required" : false
         }
       ],
-      "result" : {
-        "name" : "Data",
-        "required" : false,
-        "schema" : {
-          "pattern" : "^0x[0-9a-fA-F]*$",
-          "type" : "string",
-          "title" : "Data"
-        }
-      },
-      "summary" : "Get the block hash by timeslot. If timeslot is not provided, returns the best block hash.",
-      "name" : "chain_getBlockHash"
+      "name" : "chain_getBlock",
+      "summary" : "Get block by hash. If hash is not provided, returns the best block."
     },
     {
+      "name" : "chain_getBlockHash",
       "params" : [
-
+        {
+          "required" : false,
+          "schema" : {
+            "type" : "integer"
+          },
+          "name" : "timeslot"
+        }
       ],
+      "summary" : "Get the block hash by timeslot. If timeslot is not provided, returns the best block hash.",
+      "result" : {
+        "required" : false,
+        "name" : "Data",
+        "schema" : {
+          "type" : "string",
+          "title" : "Data",
+          "pattern" : "^0x[0-9a-fA-F]*$"
+        }
+      }
+    },
+    {
+      "name" : "chain_getFinalziedHead",
       "result" : {
         "required" : false,
         "schema" : {
+          "type" : "string",
           "title" : "Data32",
-          "pattern" : "^0x[0-9a-fA-F]{64}$",
-          "type" : "string"
+          "pattern" : "^0x[0-9a-fA-F]{64}$"
         },
         "name" : "Data32"
       },
       "summary" : "Get hash of the last finalized block in the canon chain.",
-      "name" : "chain_getFinalziedHead"
-    },
-    {
-      "summary" : "Get block header by hash. If hash is not provided, returns the best block header.",
-      "name" : "chain_getHeader",
-      "result" : {
-        "name" : "Data",
-        "required" : false,
-        "schema" : {
-          "title" : "Data",
-          "type" : "string",
-          "pattern" : "^0x[0-9a-fA-F]*$"
-        }
-      },
       "params" : [
-        {
-          "required" : false,
-          "name" : "Data32",
-          "schema" : {
-            "type" : "string",
-            "pattern" : "^0x[0-9a-fA-F]{64}$",
-            "title" : "Data32"
-          }
-        }
+
       ]
     },
     {
-      "summary" : "Returns true if the node is healthy.",
-      "name" : "system_health",
+      "name" : "chain_getHeader",
+      "summary" : "Get block header by hash. If hash is not provided, returns the best block header.",
       "params" : [
-
+        {
+          "name" : "hash",
+          "schema" : {
+            "type" : "string",
+            "title" : "Data32",
+            "pattern" : "^0x[0-9a-fA-F]{64}$"
+          },
+          "required" : false
+        }
       ],
       "result" : {
-        "name" : "Bool",
-        "required" : true,
+        "required" : false,
         "schema" : {
-          "type" : "boolean"
-        }
+          "type" : "string",
+          "title" : "Data",
+          "pattern" : "^0x[0-9a-fA-F]*$"
+        },
+        "name" : "Data"
       }
     },
     {
+      "params" : [
+
+      ],
+      "name" : "system_health",
+      "summary" : "Returns true if the node is healthy.",
+      "result" : {
+        "schema" : {
+          "type" : "boolean"
+        },
+        "required" : true,
+        "name" : "Bool"
+      }
+    },
+    {
+      "result" : {
+        "name" : "String",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
       "name" : "system_implementation",
       "params" : [
 
       ],
-      "result" : {
-        "required" : true,
-        "name" : "String",
-        "schema" : {
-          "type" : "string"
-        }
-      },
       "summary" : "Returns the implementation name of the node."
     },
     {
-      "name" : "system_version",
       "summary" : "Returns the version of the node.",
+      "name" : "system_version",
       "params" : [
 
       ],
       "result" : {
         "name" : "String",
+        "required" : true,
         "schema" : {
           "type" : "string"
-        },
-        "required" : true
+        }
       }
     },
     {
-      "name" : "system_properties",
-      "params" : [
-
-      ],
-      "summary" : "Get a custom set of properties as a JSON object, defined in the chain spec.",
       "result" : {
-        "required" : true,
+        "name" : "JSON",
         "schema" : {
           "type" : "object",
           "title" : "JSON"
         },
-        "name" : "JSON"
-      }
+        "required" : true
+      },
+      "params" : [
+
+      ],
+      "summary" : "Get a custom set of properties as a JSON object, defined in the chain spec.",
+      "name" : "system_properties"
     },
     {
+      "summary" : "Returns the roles the node is running as.",
+      "params" : [
+
+      ],
+      "name" : "system_nodeRoles",
       "result" : {
-        "required" : true,
         "schema" : {
           "items" : {
             "type" : "string"
           },
           "type" : "array"
         },
+        "required" : true,
         "name" : "Array<String>"
-      },
-      "name" : "system_nodeRoles",
-      "summary" : "Returns the roles the node is running as.",
-      "params" : [
-
-      ]
+      }
     },
     {
-      "params" : [
-
-      ],
+      "name" : "system_chain",
       "summary" : "Returns the chain name, defined in the chain spec.",
-      "result" : {
-        "schema" : {
-          "type" : "string"
-        },
-        "name" : "String",
-        "required" : true
-      },
-      "name" : "system_chain"
-    },
-    {
-      "summary" : "Returns the latest telemetry update.",
       "params" : [
 
       ],
       "result" : {
         "required" : true,
         "schema" : {
-          "type" : "object",
-          "title" : "Dictionary<String, String>"
-        },
-        "name" : "Dictionary<String, String>"
-      },
-      "name" : "telemetry_getUpdate"
-    },
-    {
-      "name" : "telemetry_name",
-      "params" : [
-
-      ],
-      "result" : {
-        "required" : true,
-        "name" : "String",
-        "schema" : {
           "type" : "string"
-        }
-      },
-      "summary" : "Returns the name of the node."
+        },
+        "name" : "String"
+      }
     },
     {
-      "params" : [
-
-      ],
-      "name" : "rpc_methods",
+      "name" : "state_getKeys",
       "result" : {
         "name" : "Array<String>",
         "schema" : {
@@ -218,13 +192,136 @@
         },
         "required" : true
       },
-      "summary" : "Returns a list of available RPC methods."
+      "summary" : "Returns the keys of the state.",
+      "params" : [
+        {
+          "required" : true,
+          "name" : "prefix",
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "title" : "Data32",
+            "type" : "string"
+          }
+        },
+        {
+          "name" : "count",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        },
+        {
+          "required" : false,
+          "name" : "startKey",
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string",
+            "title" : "Data32"
+          }
+        },
+        {
+          "schema" : {
+            "title" : "Data32",
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string"
+          },
+          "required" : false,
+          "name" : "blockHash"
+        }
+      ]
+    },
+    {
+      "summary" : "Returns the storage entry for a key for blockHash or best head.",
+      "name" : "state_getStorage",
+      "params" : [
+        {
+          "schema" : {
+            "type" : "string",
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "title" : "Data32"
+          },
+          "name" : "key",
+          "required" : true
+        },
+        {
+          "name" : "blockHash",
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "title" : "Data32",
+            "type" : "string"
+          },
+          "required" : false
+        }
+      ],
+      "result" : {
+        "schema" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : "array"
+        },
+        "required" : true,
+        "name" : "Array<String>"
+      }
+    },
+    {
+      "name" : "telemetry_name",
+      "summary" : "Returns the name of the node.",
+      "params" : [
+
+      ],
+      "result" : {
+        "name" : "String",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    {
+      "result" : {
+        "required" : true,
+        "name" : "Int",
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "summary" : "Returns the number of connected peers.",
+      "name" : "telemetry_peersCount",
+      "params" : [
+
+      ]
+    },
+    {
+      "name" : "telemetry_networkKey",
+      "params" : [
+
+      ],
+      "result" : {
+        "schema" : {
+          "type" : "string"
+        },
+        "required" : true,
+        "name" : "String"
+      },
+      "summary" : "Returns the Ed25519 key for p2p networks."
+    },
+    {
+      "summary" : "Returns a list of available RPC methods.",
+      "params" : [
+
+      ],
+      "result" : {
+        "required" : true,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "name" : "Array<String>"
+      },
+      "name" : "rpc_methods"
     }
-  ],
-  "openrpc" : "1.0.0",
-  "info" : {
-    "version" : "0.0.1",
-    "title" : "JAM JSONRPC (draft)",
-    "description" : "JSONRPC spec for JAM nodes (draft)"
-  }
+  ]
 }

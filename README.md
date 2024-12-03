@@ -9,6 +9,7 @@ JSONRPC spec for JAM nodes. Powered by [open-rpc](https://open-rpc.org).
 - Following Polkadot JSON RPC: https://polkadot.js.org/docs/substrate/rpc/
 - Return raw encoded bytes instead of human readable JSON types
 - Keep it simple and minimal so that it is not too much work for all the implementations to support it
+- Assume the RPC node is trusted. Given the target audience, it is safe to assume they all run their own RPC nodes.
 
 Note: JAM node RPCs are strictly for development/testing/operational purposes only.
 
