@@ -7,98 +7,98 @@
   "methods" : [
     {
       "result" : {
-        "required" : false,
         "name" : "Data",
         "schema" : {
-          "title" : "Data",
           "type" : "string",
-          "pattern" : "^0x[0-9a-fA-F]*$"
-        }
+          "pattern" : "^0x[0-9a-fA-F]*$",
+          "title" : "Data"
+        },
+        "required" : false
       },
       "name" : "chain_getBlock",
       "params" : [
         {
-          "name" : "hash",
           "schema" : {
-            "type" : "string",
             "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string",
             "title" : "Data32"
           },
-          "required" : false
+          "required" : false,
+          "name" : "hash"
         }
       ],
       "summary" : "Get block by hash. If hash is not provided, returns the best block."
     },
     {
+      "summary" : "Get the block hash by timeslot. If timeslot is not provided, returns the best block hash.",
+      "name" : "chain_getBlockHash",
+      "result" : {
+        "name" : "Data",
+        "schema" : {
+          "title" : "Data",
+          "pattern" : "^0x[0-9a-fA-F]*$",
+          "type" : "string"
+        },
+        "required" : false
+      },
       "params" : [
         {
-          "required" : false,
-          "name" : "timeslot",
           "schema" : {
             "type" : "integer"
+          },
+          "name" : "timeslot",
+          "required" : false
+        }
+      ]
+    },
+    {
+      "params" : [
+
+      ],
+      "name" : "chain_getFinalizedHead",
+      "summary" : "Get hash of the last finalized block in the canon chain.",
+      "result" : {
+        "name" : "Data32",
+        "schema" : {
+          "type" : "string",
+          "title" : "Data32",
+          "pattern" : "^0x[0-9a-fA-F]{64}$"
+        },
+        "required" : false
+      }
+    },
+    {
+      "summary" : "Get block header by hash. If hash is not provided, returns the best block header.",
+      "params" : [
+        {
+          "name" : "hash",
+          "required" : false,
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string",
+            "title" : "Data32"
           }
         }
       ],
-      "summary" : "Get the block hash by timeslot. If timeslot is not provided, returns the best block hash.",
       "result" : {
-        "name" : "Data",
+        "required" : false,
         "schema" : {
           "type" : "string",
           "title" : "Data",
           "pattern" : "^0x[0-9a-fA-F]*$"
         },
-        "required" : false
+        "name" : "Data"
       },
-      "name" : "chain_getBlockHash"
-    },
-    {
-      "summary" : "Get hash of the last finalized block in the canon chain.",
-      "result" : {
-        "required" : false,
-        "schema" : {
-          "pattern" : "^0x[0-9a-fA-F]{64}$",
-          "title" : "Data32",
-          "type" : "string"
-        },
-        "name" : "Data32"
-      },
-      "name" : "chain_getFinalizedHead",
-      "params" : [
-
-      ]
-    },
-    {
-      "name" : "chain_getHeader",
-      "summary" : "Get block header by hash. If hash is not provided, returns the best block header.",
-      "result" : {
-        "schema" : {
-          "pattern" : "^0x[0-9a-fA-F]*$",
-          "title" : "Data",
-          "type" : "string"
-        },
-        "name" : "Data",
-        "required" : false
-      },
-      "params" : [
-        {
-          "schema" : {
-            "pattern" : "^0x[0-9a-fA-F]{64}$",
-            "title" : "Data32",
-            "type" : "string"
-          },
-          "required" : false,
-          "name" : "hash"
-        }
-      ]
+      "name" : "chain_getHeader"
     },
     {
       "name" : "system_health",
       "result" : {
         "name" : "Bool",
+        "required" : true,
         "schema" : {
           "type" : "boolean"
-        },
-        "required" : true
+        }
       },
       "params" : [
 
@@ -107,8 +107,8 @@
     },
     {
       "result" : {
-        "name" : "String",
         "required" : true,
+        "name" : "String",
         "schema" : {
           "type" : "string"
         }
@@ -120,49 +120,49 @@
       ]
     },
     {
-      "name" : "system_version",
       "result" : {
-        "required" : true,
-        "name" : "String",
         "schema" : {
           "type" : "string"
+        },
+        "required" : true,
+        "name" : "String"
+      },
+      "params" : [
+
+      ],
+      "name" : "system_version",
+      "summary" : "Returns the version of the node."
+    },
+    {
+      "result" : {
+        "required" : true,
+        "name" : "JSON",
+        "schema" : {
+          "type" : "object",
+          "title" : "JSON"
         }
       },
-      "summary" : "Returns the version of the node.",
+      "summary" : "Get a custom set of properties as a JSON object, defined in the chain spec.",
+      "name" : "system_properties",
       "params" : [
 
       ]
     },
     {
-      "result" : {
-        "schema" : {
-          "type" : "object",
-          "title" : "JSON"
-        },
-        "required" : true,
-        "name" : "JSON"
-      },
-      "summary" : "Get a custom set of properties as a JSON object, defined in the chain spec.",
-      "params" : [
-
-      ],
-      "name" : "system_properties"
-    },
-    {
-      "params" : [
-
-      ],
       "name" : "system_nodeRoles",
       "summary" : "Returns the roles the node is running as.",
+      "params" : [
+
+      ],
       "result" : {
-        "required" : true,
+        "name" : "Array<String>",
         "schema" : {
-          "type" : "array",
           "items" : {
             "type" : "string"
-          }
+          },
+          "type" : "array"
         },
-        "name" : "Array<String>"
+        "required" : true
       }
     },
     {
@@ -170,24 +170,35 @@
       "params" : [
 
       ],
+      "name" : "system_chain",
       "result" : {
+        "name" : "String",
+        "required" : true,
         "schema" : {
           "type" : "string"
-        },
-        "name" : "String",
-        "required" : true
-      },
-      "name" : "system_chain"
+        }
+      }
     },
     {
+      "result" : {
+        "schema" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : "array"
+        },
+        "name" : "Array<String>",
+        "required" : true
+      },
+      "name" : "state_getKeys",
       "params" : [
         {
-          "schema" : {
-            "type" : "string",
-            "title" : "Data32",
-            "pattern" : "^0x[0-9a-fA-F]{64}$"
-          },
           "name" : "prefix",
+          "schema" : {
+            "title" : "Data32",
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string"
+          },
           "required" : true
         },
         {
@@ -199,97 +210,86 @@
         },
         {
           "name" : "startKey",
+          "required" : false,
+          "schema" : {
+            "title" : "Data32",
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string"
+          }
+        },
+        {
+          "name" : "blockHash",
+          "schema" : {
+            "title" : "Data32",
+            "type" : "string",
+            "pattern" : "^0x[0-9a-fA-F]{64}$"
+          },
+          "required" : false
+        }
+      ],
+      "summary" : "Returns the keys of the state."
+    },
+    {
+      "params" : [
+        {
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "title" : "Data32",
+            "pattern" : "^0x[0-9a-fA-F]{64}$",
+            "type" : "string"
+          }
+        },
+        {
+          "required" : false,
           "schema" : {
             "type" : "string",
             "title" : "Data32",
             "pattern" : "^0x[0-9a-fA-F]{64}$"
           },
-          "required" : false
-        },
-        {
-          "schema" : {
-            "pattern" : "^0x[0-9a-fA-F]{64}$",
-            "title" : "Data32",
-            "type" : "string"
-          },
-          "name" : "blockHash",
-          "required" : false
+          "name" : "blockHash"
         }
       ],
-      "summary" : "Returns the keys of the state.",
-      "name" : "state_getKeys",
+      "name" : "state_getStorage",
+      "summary" : "Returns the storage entry for a key for blockHash or best head.",
       "result" : {
+        "required" : true,
+        "name" : "Array<String>",
         "schema" : {
           "type" : "array",
           "items" : {
             "type" : "string"
           }
-        },
-        "name" : "Array<String>",
-        "required" : true
+        }
       }
     },
     {
-      "result" : {
-        "required" : true,
-        "name" : "Array<String>",
-        "schema" : {
-          "items" : {
-            "type" : "string"
-          },
-          "type" : "array"
-        }
-      },
-      "params" : [
-        {
-          "schema" : {
-            "type" : "string",
-            "title" : "Data32",
-            "pattern" : "^0x[0-9a-fA-F]{64}$"
-          },
-          "required" : true,
-          "name" : "key"
-        },
-        {
-          "schema" : {
-            "type" : "string",
-            "pattern" : "^0x[0-9a-fA-F]{64}$",
-            "title" : "Data32"
-          },
-          "name" : "blockHash",
-          "required" : false
-        }
-      ],
-      "name" : "state_getStorage",
-      "summary" : "Returns the storage entry for a key for blockHash or best head."
-    },
-    {
-      "name" : "telemetry_name",
-      "result" : {
-        "schema" : {
-          "type" : "string"
-        },
-        "name" : "String",
-        "required" : true
-      },
-      "summary" : "Returns the name of the node.",
       "params" : [
 
-      ]
+      ],
+      "name" : "telemetry_name",
+      "summary" : "Returns the name of the node.",
+      "result" : {
+        "name" : "String",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }
     },
     {
+      "summary" : "Returns the number of connected peers.",
       "result" : {
-        "required" : true,
         "schema" : {
           "type" : "integer"
         },
-        "name" : "Int"
+        "name" : "Int",
+        "required" : true
       },
       "params" : [
 
       ],
-      "name" : "telemetry_peersCount",
-      "summary" : "Returns the number of connected peers."
+      "name" : "telemetry_peersCount"
     },
     {
       "summary" : "Returns the Ed25519 key for p2p networks.",
@@ -298,28 +298,153 @@
       ],
       "name" : "telemetry_networkKey",
       "result" : {
+        "name" : "String",
+        "required" : true,
         "schema" : {
           "type" : "string"
-        },
-        "name" : "String",
-        "required" : true
+        }
       }
     },
     {
       "name" : "rpc_methods",
-      "summary" : "Returns a list of available RPC methods.",
       "params" : [
 
       ],
       "result" : {
-        "name" : "Array<String>",
+        "required" : true,
+        "schema" : {
+          "items" : {
+            "type" : "string"
+          },
+          "type" : "array"
+        },
+        "name" : "Array<String>"
+      },
+      "summary" : "Returns a list of available RPC methods."
+    },
+    {
+      "summary" : "Submit a new work package for inclusion in the blockchain.",
+      "params" : [
+        {
+          "schema" : {
+            "type" : "integer"
+          },
+          "name" : "coreIndex",
+          "required" : true
+        },
+        {
+          "required" : true,
+          "name" : "workPackage",
+          "schema" : {
+            "title" : "Data",
+            "type" : "string",
+            "pattern" : "^0x[0-9a-fA-F]*$"
+          }
+        },
+        {
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "title" : "Data",
+              "pattern" : "^0x[0-9a-fA-F]*$"
+            }
+          },
+          "name" : "extrinsics"
+        }
+      ],
+      "result" : {
+        "required" : true,
+        "schema" : {
+          "type" : "boolean"
+        },
+        "name" : "Bool"
+      },
+      "name" : "builder_submitWorkPackage"
+    },
+    {
+      "summary" : "Create a new key of the specified type and save it to the keystore.",
+      "name" : "keys_create",
+      "result" : {
+        "name" : "PubKeyItem",
+        "required" : true,
+        "schema" : {
+          "properties" : {
+            "key" : {
+              "type" : "string"
+            },
+            "type" : {
+              "type" : "string"
+            }
+          },
+          "type" : "object",
+          "title" : "PubKeyItem"
+        }
+      },
+      "params" : [
+        {
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true,
+          "name" : "keyType"
+        }
+      ]
+    },
+    {
+      "summary" : "List all public keys in the keystore.",
+      "params" : [
+
+      ],
+      "name" : "keys_list",
+      "result" : {
+        "name" : "Array<PubKeyItem>",
+        "required" : true,
         "schema" : {
           "type" : "array",
           "items" : {
-            "type" : "string"
+            "type" : "object",
+            "properties" : {
+              "key" : {
+                "type" : "string"
+              },
+              "type" : {
+                "type" : "string"
+              }
+            },
+            "title" : "PubKeyItem"
           }
+        }
+      }
+    },
+    {
+      "params" : [
+        {
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "name" : "keyType"
         },
-        "required" : true
+        {
+          "required" : true,
+          "schema" : {
+            "pattern" : "^0x[0-9a-fA-F]*$",
+            "type" : "string",
+            "title" : "Data"
+          },
+          "name" : "publicKey"
+        }
+      ],
+      "summary" : "Check if a public key exists in the keystore.",
+      "name" : "keys_hasKey",
+      "result" : {
+        "name" : "Bool",
+        "required" : true,
+        "schema" : {
+          "type" : "boolean"
+        }
       }
     }
   ],
